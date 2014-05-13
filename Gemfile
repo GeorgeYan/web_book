@@ -14,7 +14,6 @@ gem 'sass-rails', '~> 4.0.3'
 gem 'bootstrap-sass', '~> 3.1.1.1'
 gem 'angularjs-rails', '~> 1.2.16'
 gem 'angular-ui-bootstrap-rails', '~> 0.10.0'
-gem 'nokogiri'
 
 gem 'active_model_serializers'
 # Use Uglifier as compressor for JavaScript assets
