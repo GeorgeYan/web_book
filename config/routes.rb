@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'upload/index'
+
+  post 'upload/upload'
+
   resources :posts
 
   devise_for :users
