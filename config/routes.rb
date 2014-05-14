@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get 'book/all' => 'book#get_book_all'
   get 'book/:book_id' => 'book#get_chapter_all'
   get 'chapter/:chapter_id' => 'book#get_paragraphs_all'
+  post 'modifyparagraph' => 'book#store_modify_paragraph'
 
 
   resources :posts
