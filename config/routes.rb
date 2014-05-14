@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   end
   root to: 'home#index'
 
+  get '/dashboard' => 'templates#index'
+
   get '/templates/:path.html' => 'templates#template', :constraints => { :path => /.+/ }
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
