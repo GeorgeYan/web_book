@@ -11,11 +11,59 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140512052713) do
+ActiveRecord::Schema.define(version: 20140514021434) do
+
+  create_table "books", force: true do |t|
+    t.integer  "author_id"
+    t.integer  "publish_corporation_id"
+    t.string   "name"
+    t.string   "language"
+    t.integer  "translator_id"
+    t.integer  "publish_time"
+    t.string   "isbn"
+    t.string   "type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "chapters", force: true do |t|
+    t.integer  "book_id"
+    t.integer  "index"
+    t.integer  "parent_id"
+    t.integer  "degree"
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "contents", force: true do |t|
+    t.integer  "paragraph_id"
+    t.text     "text"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "paragraphs", force: true do |t|
+    t.integer  "book_id"
+    t.integer  "chapter_id"
+    t.integer  "index"
+    t.integer  "is_only_text"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "posts", force: true do |t|
     t.string   "title"
     t.string   "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "resources", force: true do |t|
+    t.integer  "paragraph_id"
+    t.integer  "index"
+    t.string   "location"
+    t.string   "rtype"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

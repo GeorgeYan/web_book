@@ -46,11 +46,14 @@ gem 'spring',        group: :development
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+gem 'nokogiri'
+
 group :test do
   gem 'rspec-rails', '~> 3.0.0.beta'
   gem 'factory_girl'
-  gem 'capybara', '~> 2.2.1'
-  gem 'nokogiri', '~>1.5.10'
+  #gem 'capybara', '~> 2.2.1'
+  #gem 'nokogiri', '~>1.5.10'
   gem 'email_spec'
 end
 
