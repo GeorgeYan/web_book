@@ -1,6 +1,7 @@
 class Chapter < ActiveRecord::Base
 
   has_many :paragraphs
+  has_many :modifyparagraphs
   belongs_to :book
   has_many :child_chapter, class_name: "Chapter",
                            foreign_key: "parent_id"

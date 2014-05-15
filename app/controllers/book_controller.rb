@@ -7,7 +7,7 @@ class BookController < ApplicationController
     @books = Book.all
     respond_to do |format|
 
-      format.json { render json: @books}
+      format.json { render json: @books.to_json, content_type: "application/json" }
 
     end
 
@@ -19,7 +19,7 @@ class BookController < ApplicationController
 
     respond_to do |format|
 
-      format.json { render json: @chapters }
+      format.json { render json: @chapters.to_json }
 
     end
 
@@ -28,17 +28,50 @@ class BookController < ApplicationController
   def get_paragraphs_all
 
     @paragraphs = Array.new
+    modparagraphs = Array.new
+
+    Chapter.find(params[:chapter_id]).modifyparagraphs.each do |modparagraph|
+
+      prev_id = modparagraph.prev_id unless modparagraph.prev_id.nil?
+      next_id = modparagraph.next_id unless modparagraph.next_id.nil?
+
+      modparagraphs << { :id => modparagraph.id, :text => modparagraph.content,
+                         :prev_id => prev_id, :next_id => next_id }
+
+    end
 
     Chapter.find(params[:chapter_id]).paragraphs.each do |paragraph|
 
-      @paragraphs << {:id=>paragraph.id, :text => paragraph.content.text}
+      flag = false
+      modparagraphs.each do |par|
+        if par[:next_id] == paragraph.id then
+          @paragraphs << { :id => par[:id], :text => par[:text] }
+          @paragraphs << {:id=>paragraph.id, :text => paragraph.content.text}
+          flag = true
+          modparagraphs.delete par
+        end
+
+        if par[:prev_id] == paragraph.id then
+          @paragraphs << {:id=>paragraph.id, :text => paragraph.content.text}
+          @paragraphs << { :id => par[:id], :text => par[:text] }
+          flag = true
+          modparagraphs.delete par
+        end
+
+      end
+
+      unless flag then
+        @paragraphs << {:id=>paragraph.id, :text => paragraph.content.text}
+      end
 
     end
 
 
+
+
     respond_to do |format|
 
-      format.json { render json: @paragraphs }
+      format.json { render json: @paragraphs.to_json }
 
     end
 
