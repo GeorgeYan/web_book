@@ -7,7 +7,7 @@ class BookController < ApplicationController
     @books = Book.all
     respond_to do |format|
 
-      format.json { render json: @books}
+      format.json { render json: @books.to_json }
 
     end
 
@@ -19,7 +19,7 @@ class BookController < ApplicationController
 
     respond_to do |format|
 
-      format.json { render json: @chapters }
+      format.json { render json: @chapters.to_json }
 
     end
 
@@ -31,10 +31,16 @@ class BookController < ApplicationController
 
     Chapter.find(params[:chapter_id]).paragraphs.each do |paragraph|
 
-      @paragraphs << {:id=>paragraph.id, :text => paragraph.content.text}
+      tmpParagraph = Hash.new
+
+      tmpParagraph.store(:modify, paragraph.modifyparagraph.content) unless paragraph.modifyparagraph.nil?
+
+      tmpParagraph.store(:id, paragraph.id)
+      tmpParagraph.store(:text, paragraph.content.text)
+
+      @paragraphs << tmpParagraph
 
     end
-
 
     respond_to do |format|
 
@@ -47,8 +53,8 @@ class BookController < ApplicationController
   def store_modify_paragraph
 
     @modifyparagraph = Modifyparagraph.new(:chapter_id => params[:chapter_id],
-      :book_id => params[:book_id], :prev_id => params[:prev_id], :next_id => params[:next_id],
-      :content => params[:content])
+      :book_id => params[:book_id], :prev_id => 0, :next_id => 0,
+      :content => params[:content], :paragraph_id => params[:paragraph_id])
 
     respond_to do |format|
       if @modifyparagraph.save then
