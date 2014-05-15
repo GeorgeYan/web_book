@@ -7,7 +7,7 @@ class BookController < ApplicationController
     @books = Book.all
     respond_to do |format|
 
-      format.json { render json: @books.to_json, content_type: "application/json" }
+      format.json { render json: @books.to_json }
 
     end
 
@@ -28,46 +28,19 @@ class BookController < ApplicationController
   def get_paragraphs_all
 
     @paragraphs = Array.new
-    modparagraphs = Array.new
-
-    Chapter.find(params[:chapter_id]).modifyparagraphs.each do |modparagraph|
-
-      prev_id = modparagraph.prev_id unless modparagraph.prev_id.nil?
-      next_id = modparagraph.next_id unless modparagraph.next_id.nil?
-
-      modparagraphs << { :id => modparagraph.id, :text => modparagraph.content,
-                         :prev_id => prev_id, :next_id => next_id }
-
-    end
 
     Chapter.find(params[:chapter_id]).paragraphs.each do |paragraph|
 
-      flag = false
-      modparagraphs.each do |par|
-        if par[:next_id] == paragraph.id then
-          @paragraphs << { :id => par[:id], :text => par[:text] }
-          @paragraphs << {:id=>paragraph.id, :text => paragraph.content.text}
-          flag = true
-          modparagraphs.delete par
-        end
+      tmpParagraph = Hash.new
 
-        if par[:prev_id] == paragraph.id then
-          @paragraphs << {:id=>paragraph.id, :text => paragraph.content.text}
-          @paragraphs << { :id => par[:id], :text => par[:text] }
-          flag = true
-          modparagraphs.delete par
-        end
+      tmpParagraph.store(:modify, paragraph.modifyparagraph.content) unless paragraph.modifyparagraph.nil?
 
-      end
+      tmpParagraph.store(:id, paragraph.id)
+      tmpParagraph.store(:text, paragraph.content.text)
 
-      unless flag then
-        @paragraphs << {:id=>paragraph.id, :text => paragraph.content.text}
-      end
+      @paragraphs << tmpParagraph
 
     end
-
-
-
 
     respond_to do |format|
 
@@ -80,8 +53,8 @@ class BookController < ApplicationController
   def store_modify_paragraph
 
     @modifyparagraph = Modifyparagraph.new(:chapter_id => params[:chapter_id],
-      :book_id => params[:book_id], :prev_id => params[:prev_id], :next_id => params[:next_id],
-      :content => params[:content])
+      :book_id => params[:book_id], :prev_id => 0, :next_id => 0,
+      :content => params[:content], :paragraph_id => params[:paragraph_id])
 
     respond_to do |format|
       if @modifyparagraph.save then
