@@ -38,7 +38,7 @@ class BookController < ApplicationController
 
     respond_to do |format|
 
-      format.json { render json: @paragraphs }
+      format.json { render json: @paragraphs.to_json }
 
     end
 
