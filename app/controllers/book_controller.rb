@@ -33,7 +33,7 @@ class BookController < ApplicationController
 
       tmpParagraph = Hash.new
 
-      tmpParagraph.store(:modify, paragraph.modifyparagraph.content) unless paragraph.modifyparagraph.nil?
+      tmpParagraph.store(:modify, paragraph.modifyparagraph.content)&&tmpParagraph.store(:modify_id, paragraph.modifyparagraph.id) unless paragraph.modifyparagraph.nil?
 
       tmpParagraph.store(:id, paragraph.id)
       tmpParagraph.store(:text, paragraph.content.text)
