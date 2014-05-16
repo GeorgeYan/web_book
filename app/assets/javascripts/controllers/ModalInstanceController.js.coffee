@@ -14,4 +14,3 @@
   $scope.cancel = ->
     $modalInstance.dismiss('cancel')
 
-  $scope.update = ->
