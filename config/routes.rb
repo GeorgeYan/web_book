@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+  resources :midify_paragraph
+
   get 'upload/index'
 
   post 'upload/upload'

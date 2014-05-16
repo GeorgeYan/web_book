@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140514062201) do
+ActiveRecord::Schema.define(version: 20140515053428) do
 
   create_table "books", force: true do |t|
     t.integer  "author_id"
@@ -43,12 +43,32 @@ ActiveRecord::Schema.define(version: 20140514062201) do
     t.datetime "updated_at"
   end
 
+  create_table "courses", force: true do |t|
+    t.integer  "teacher_book_id"
+    t.integer  "start_time"
+    t.integer  "end_time"
+    t.string   "secrectkey"
+    t.string   "ctype"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "modifyparagraphs", force: true do |t|
     t.integer  "book_id"
     t.integer  "chapter_id"
     t.integer  "prev_id"
     t.integer  "next_id"
     t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "course_id"
+    t.integer  "paragraph_id"
+  end
+
+  create_table "notes", force: true do |t|
+    t.string   "content"
+    t.integer  "course_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -84,6 +104,13 @@ ActiveRecord::Schema.define(version: 20140514062201) do
     t.string   "name"
     t.integer  "resource_id"
     t.string   "resource_type"
+  end
+
+  create_table "teacherbooks", force: true do |t|
+    t.integer  "book_id"
+    t.integer  "teacher_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|

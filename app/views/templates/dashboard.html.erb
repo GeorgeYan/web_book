@@ -2,7 +2,11 @@
 </script>
 <div ng-init="init()">
   <div ng-repeat="list in lists">
-    <button class="btn btn-default btn-sm" ng-click="open()">Add Content</button>
+    <button class="btn btn-default btn-sm" ng-click="open(list.id)">Add Content</button>
+    <p class="bg-success">{{list.modify}}</p>
+
+    <button type="button" class="btn btn-info" ng-click="edit(list.modify_id, list.modify)">修改</button>
+    <button type="button" class="btn btn-danger" ng-click="delete(list.modify_id)">删除</button>
     <p>{{list.id}}<br>{{list.text}}</p>
   </div>
 </div>
