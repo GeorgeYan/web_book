@@ -1,8 +1,7 @@
-@ModalInstanceCtrl = ($scope, $routeParams, $location, $modalInstance, items, paragraphId, currentContent, Modify) ->
+@ModalInstanceCtrl = ($scope, $routeParams, $location, $modalInstance, items, paragraphId,  Modify) ->
   $scope.formData =
     paragraphId : paragraphId
     content: ''
-    currentContent: currentContent
   $scope.items = items
   $scope.selected = {
     item: $scope.items[0]
