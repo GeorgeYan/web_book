@@ -2,11 +2,12 @@ class Book < ActiveRecord::Base
 
   has_many :chapters
   has_many :paragraphs
+  has_many :book_fonts
 
   after_initialize :set_default_values
-  after_save :save_chapter
+  after_save :save_font, :save_chapter
 
-  attr_accessor :chapterArray, :paragraphArray
+  attr_accessor :chapterArray, :paragraphArray, :fontArray
 
   def analyze_chapter
 
@@ -51,13 +52,27 @@ class Book < ActiveRecord::Base
   def set_default_values
     self.chapterArray, self.paragraphArray =
         Array.new, Array.new
+    self.fontArray = Array.new
   end
 
   def save_chapter
 
     self.chapterArray.each do |chapter|
       chapter.book_id = self.id
+      chapter.book_font_id =@book_font_hash[chapter.font_name]
       chapter.save
+    end
+
+  end
+
+  def save_font
+
+    @book_font_hash = Hash.new
+
+    self.fontArray.each do |font|
+      font.book_id = self.id
+      font.save
+      @book_font_hash.store font.name, font.id
     end
 
   end

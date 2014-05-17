@@ -36,7 +36,7 @@ class BookController < ApplicationController
       tmpParagraph.store(:modify, paragraph.modifyparagraph.content) && tmpParagraph.store(:modify_id, paragraph.modifyparagraph.id) unless paragraph.modifyparagraph.nil?
 
       tmpParagraph.store(:id, paragraph.id)
-      tmpParagraph.store(:text, paragraph.content.text)
+      tmpParagraph.store(:text, paragraph.contents.inject(""){|sum, ele| sum + ele.text.to_s})
 
       @paragraphs << tmpParagraph
 

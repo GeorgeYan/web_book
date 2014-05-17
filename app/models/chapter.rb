@@ -1,5 +1,6 @@
 class Chapter < ActiveRecord::Base
 
+  belongs_to :book_font
   has_many :paragraphs
   has_many :modifyparagraphs
   belongs_to :book
@@ -11,7 +12,7 @@ class Chapter < ActiveRecord::Base
   after_save :save_paragraph
   before_save :set_chapter_values
 
-  attr_accessor :children, :paragraphArray, :prev, :next
+  attr_accessor :children, :paragraphArray, :prev, :next, :font_name
 
   private
   def set_default_values
@@ -20,7 +21,7 @@ class Chapter < ActiveRecord::Base
 
   def set_chapter_values
 
-    parent = self.parent_id.nil? ? nil : Book.find(self.book_id).chapters.where("index=#{self.parent_id}").last
+    parent = self.parent_id.nil? ? nil : Book.find(self.book_id).chapters.find_by_index(self.parent_id)
     self.parent_id = parent.nil? ? 0 : parent.id
 
   end
