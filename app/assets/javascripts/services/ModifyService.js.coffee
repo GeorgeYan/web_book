@@ -3,7 +3,7 @@ angular.module('web_book').factory 'Modify', ['$http', ($http) ->
     content: ''
 
   Modify.createContent = (formData) ->
-    if formData.id = '' or formData.content == ''
+    if formData.id == '' or formData.content == ''
       alert('Neither the id nor the content are allowed to be blank')
       return false
 
