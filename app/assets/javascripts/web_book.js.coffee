@@ -8,6 +8,7 @@ web_book.config ($routeProvider, $locationProvider) ->
   $locationProvider.html5Mode true
   $routeProvider.when '/', redirectTo: '/dashboard'
   $routeProvider.when '/dashboard', templateUrl: '/templates/dashboard.html', controller: 'DashboardController'
+  $routeProvider.when '/test', templateUrl: '/templates/test.html', controller: 'TestController'
 
 
 $(document).on 'page:load', ->

@@ -1,0 +1,2 @@
+@TestController = ($scope) ->
+  $scope.name = ''

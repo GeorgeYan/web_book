@@ -7,6 +7,12 @@
 
     <button type="button" class="btn btn-info" ng-click="edit(list.modify_id, list.modify)">修改</button>
     <button type="button" class="btn btn-danger" ng-click="delete(list.modify_id)">删除</button>
-    <p>{{list.id}}<br>{{list.text}}</p>
+
+    <button class='btn btn-default' ng-click="myStyle={}" style="float:right">清除</button>
+    <button class='btn btn-default' ng-click="myStyle={color:'blue'}" style="float:right">蓝色</button>
+    <button class='btn btn-default' ng-click="myStyle={color:'red'}" style="float:right">红色</button>
+    <p>{{list.id}}</p>
+    <div ng-style="myStyle"><p>{{list.text}}</p></div>
   </div>
 </div>
+
