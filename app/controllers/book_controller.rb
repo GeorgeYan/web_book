@@ -15,11 +15,37 @@ class BookController < ApplicationController
 
   def get_chapter_all
 
-    @chapters = Book.find(params[:book_id]).chapters
+    @chapters = Array.new
+
+    chapterList = Book.find(params[:book_id]).chapters.map{ |ele|
+      {:id => ele.id, :title => ele.title, :child => Array.new} if ele.degree == 1
+    }
+
+    for chapter in chapterList
+
+      unless chapter.nil? then
+        chapter[:child] = find_child(chapter[:id])
+        @chapters << chapter
+      end
+
+
+    end
+
+    respond_to do |format|
+      format.json { render json: @chapters.to_json }
+    end
+
+  end
+
+  def delete_book
+
+    book_id = params[:book_id]
 
     respond_to do |format|
 
-      format.json { render json: @chapters.to_json }
+      if Book.delete book_id then
+        format.json { render json: book_id.to_json }
+      end
 
     end
 
@@ -85,5 +111,14 @@ class BookController < ApplicationController
     end
 
   end
+
+  def find_child id
+
+    Chapter.find(id).child_chapter.map { |ele|
+      {:id => ele.id, :title => ele.title, :child => find_child(ele.id)}
+    } unless Chapter.find(id).child_chapter.empty?
+
+  end
+
 
 end

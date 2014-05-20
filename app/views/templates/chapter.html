@@ -1,0 +1,24 @@
+
+<div class="panel panel-info">
+    <div class = "panel-heading"><h1><small>{{book_id}}&nbsp;&nbsp;{{book_name}}</small></h1></div>
+    <div class = "panel-body">
+        <ul class="list-group">
+            <li ng-repeat = "chapter in chapters" class="list-group-item">
+                <a ng-click="chapter_show(chapter.id)">{{chapter.title}}</a>
+                <span ng-show="chapter.child.length > 0" class="glyphicon glyphicon-chevron-down pull-right"></span>
+                <ul ng-show="chapter.child.length > 0" class="list-group">
+                    <li ng-repeat = "chapter_child_1 in chapter.child" class="list-group-item">
+                        <a ng-click="chapter_show(chapter_child_1.id)">{{chapter_child_1.title}}</a>
+                        <span ng-show="chapter_child_1.child.length > 0" class="glyphicon glyphicon-chevron-down pull-right"></span>
+                        <ul ng-show="chapter_child_1.child.length > 0" class="list-group">
+                            <li ng-repeat = "chapter_child_2 in chapter_child_1.child" class="list-group-item">
+                                <a ng-click="chapter_show(chapter_child_2.id)">{{chapter_child_2.title}}</a>
+                                <span ng-show="chapter_child_2.child.length > 0" class="glyphicon glyphicon-chevron-down pull-down"></span>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+<script type="text/ng-template" id="chapter.html>"></script>
+<div ng-init="books_init()">
+
+    <div class="list-group">
+
+        <div class="list-group-item"  ng-repeat="book in books">
+            <small><strong>{{book.name}}</strong></small>
+            <button type="button" class="btn btn-danger pull-right" ng-click="bookDelete(book.name, book.id)">删除</button>
+            <button type="button" class="btn btn-info pull-right" ng-click="bookChapter(book.name, book.id)">章节</button>
+        </div>
+
+    </div>
+
+</div>
