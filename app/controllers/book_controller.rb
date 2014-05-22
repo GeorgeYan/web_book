@@ -51,6 +51,20 @@ class BookController < ApplicationController
 
   end
 
+  def chapter_parent
+
+    tmp_chapter = Chapter.find(params[:chapter_id])
+    get_chapter_parent tmp_chapter, @chapterParentArray = Array.new
+    @chapterParentArray << {:id=>tmp_chapter.id, :name=>tmp_chapter.title, :type=>"chapter"}
+
+    respond_to do |format|
+
+      format.json { render json: @chapterParentArray.to_json }
+
+    end
+
+  end
+
   def get_paragraphs_all
 
     @paragraphs = Array.new
@@ -63,6 +77,7 @@ class BookController < ApplicationController
 
       tmpParagraph.store(:id, paragraph.id)
       tmpParagraph.store(:text, paragraph.contents.inject(""){|sum, ele| sum + ele.text.to_s})
+      tmpParagraph.store(:show, true)
 
       @paragraphs << tmpParagraph
 
@@ -120,5 +135,15 @@ class BookController < ApplicationController
 
   end
 
+  def get_chapter_parent chapter, parentArray = Array.new
+
+    unless chapter.parent_id == 0 then
+      get_chapter_parent Chapter.find(chapter.parent_id), parentArray
+      parentArray << {:id=>chapter.parent_id, :name=> Chapter.find(chapter.parent_id).title, :type=>"chapter"}
+    else
+      parentArray << {:id=>chapter.book_id, :name => chapter.book.name, :type=>"book"}
+    end
+
+  end
 
 end

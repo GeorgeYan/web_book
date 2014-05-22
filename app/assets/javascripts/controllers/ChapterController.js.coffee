@@ -1,4 +1,4 @@
-@ChapterController = ($scope, $modalInstance, $location, book_id, book_name, Chapters) ->
+@ChapterController = ($scope, $modalInstance, $location, $http, book_id, book_name, Chapters) ->
 
   $scope.book_id = book_id
   $scope.book_name = book_name

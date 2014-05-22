@@ -10,8 +10,8 @@ Rails.application.routes.draw do
   get 'book/:book_id' => 'book#get_chapter_all'
   delete 'book/:book_id' => 'book#delete_book'
   get 'chapter/:chapter_id' => 'book#get_paragraphs_all'
+  get 'chapter_parent/:chapter_id' => 'book#chapter_parent'
   post 'modifyparagraph' => 'book#store_modify_paragraph'
-
 
 
   resources :posts
@@ -27,7 +27,7 @@ Rails.application.routes.draw do
 
   get '/dashboard' => 'templates#index'
   get '/books' => 'templates#index'
-  get '/chapter_show/:chapter_id' => 'templates#index'
+  #get '/chapter_show/:chapter_id' => 'templates#chapter_show'
 
   get '/templates/:path.html' => 'templates#template', :constraints => { :path => /.+/ }
   # The priority is based upon order of creation: first created -> highest priority.
