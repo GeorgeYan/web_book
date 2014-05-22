@@ -8,12 +8,13 @@
                 <span ng-show="chapter.child.length > 0" class="glyphicon glyphicon-chevron-down pull-right"></span>
                 <ul ng-show="chapter.child.length > 0" class="list-group">
                     <li ng-repeat = "chapter_child_1 in chapter.child" class="list-group-item">
-                        <a ng-click="chapter_show(chapter_child_1.id)">{{chapter_child_1.title}}</a>
+                        <a ng-click="chapter_show(chapter_child_1.id)" href="/chapter_show/{{chapter_child_1.id}}">{{chapter_child_1.title}}</a>
                         <span ng-show="chapter_child_1.child.length > 0" class="glyphicon glyphicon-chevron-down pull-right"></span>
                         <ul ng-show="chapter_child_1.child.length > 0" class="list-group">
                             <li ng-repeat = "chapter_child_2 in chapter_child_1.child" class="list-group-item">
-                                <a ng-click="chapter_show(chapter_child_2.id)">{{chapter_child_2.title}}</a>
+                                <a ng-click="chapter_show(chapter_child_2.id)" href="/chapter_show/{{chapter_child_2.id}}">{{chapter_child_2.title}}</a>
                                 <span ng-show="chapter_child_2.child.length > 0" class="glyphicon glyphicon-chevron-down pull-down"></span>
+
                             </li>
                         </ul>
                     </li>

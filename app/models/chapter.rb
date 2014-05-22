@@ -13,6 +13,7 @@ class Chapter < ActiveRecord::Base
   before_save :set_chapter_values
 
   attr_accessor :children, :paragraphArray, :prev, :next, :font_name
+  attr_reader :parentArray
 
   private
   def set_default_values
@@ -35,6 +36,5 @@ class Chapter < ActiveRecord::Base
     end
 
   end
-
 
 end

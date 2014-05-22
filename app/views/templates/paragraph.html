@@ -1,0 +1,69 @@
+
+<div ng-init="paragraphs_init()">
+    <ol class="breadcrumb">
+        <li ng-repeat="parent in paragraphParents"><a href="/books">{{parent.name}}</a></li>
+    </ol>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            {{paragraphParents[paragraphParents.length-1].name}}
+        </div>
+
+        <div class="panel-body">
+            <div ng-repeat="paragraph in paragraphs">
+                <p class="content">{{paragraph.text}}</p>
+                <div class="span12">
+                    <div>
+                        <span ng-click="addModify(paragraph)" class="glyphicon glyphicon-plus"></span>
+                    </div>
+                    <div collapse="paragraph.show">
+
+                        <ul class="nav nav-tabs">
+                            <li><a  ng-click="addModifyURL()"><span class="glyphicon glyphicon-globe"></span></a></li>
+                            <li><a ng-click="addModifyIMG()"><span class="glyphicon glyphicon-camera"></span></a></li>
+                            <li><a ng-click="addModifyVideo()"><span class="glyphicon glyphicon-facetime-video"></span></a></li>
+                        </ul>
+
+                        <div ng-show="modifyurl">
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-globe" ng-click="addModify(paragraph)"></span>
+                            </div>
+                            <input ng-model="paragraph.modifyURL" type="text" class="form-control" placeholder="Please input the URL.">
+                        </div>
+                        <div class="">
+                            <iframe width="100%" height="100%" seamless frameborder="0" ng-src="{{trustSrc(paragraph.modifyURL)}}" >
+                            </iframe>
+                        </div>
+                        </div>
+                        <div ng-show="modifyimg">
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-camera" ng-click="addModify(paragraph)"></span>
+                            </div>
+                            <input ng-model="paragraph.modifyIMG" type="text" class="form-control" placeholder="Please input the URL.">
+                        </div>
+                        <div class="">
+                            <img width="100%" height="100%" seamless frameborder="0" ng-src="{{paragraph.modifyIMG}}" >
+                        </div>
+                        </div>
+                        <div ng-show="modifyvideo">
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-facetime-video" ng-click="addModify(paragraph)"></span>
+                            </div>
+                            <input ng-model="paragraph.modifyVideo" type="text" class="form-control" placeholder="Please input the URL.">
+                        </div>
+                        <div class="">
+                            <video width="100%" height="100%" seamless frameborder="0" ng-src="{{paragraph.modifyVideo}}" >
+                            </video>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
