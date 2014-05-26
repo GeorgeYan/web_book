@@ -10,7 +10,7 @@
 
         <div class="panel-body">
             <div ng-repeat="paragraph in paragraphs">
-                <p class="content">{{paragraph.text}}</p>
+                <p ng-focus="mouseDown($event)" class="content">{{paragraph.text}}</p>
                 <div class="span12">
                     <div>
                         <span ng-click="addModify(paragraph)" class="glyphicon glyphicon-plus"></span>

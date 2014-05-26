@@ -4,6 +4,7 @@
   $scope.modifyurl = false
   $scope.modifyimg = false
   $scope.modifyvideo = false
+  $scope.highlightText = "a"
 
   $scope.paragraphs_init = ->
     @paragraphsService = new Paragraphs(serverErrorHandler, $routeParams.chapter_id)
@@ -30,6 +31,9 @@
     $scope.modifyurl = false
     $scope.modifyimg = false
     $scope.modifyvideo = !$scope.modifyvideo
+
+  $scope.mouseDown = (evt) ->
+    alert("The values is bb")
 
   serverErrorHandler = ->
     alert("There was a server error, please reload the page and try again")
