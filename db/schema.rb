@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140515053428) do
+ActiveRecord::Schema.define(version: 20140526063150) do
+
+  create_table "annotations", force: true do |t|
+    t.integer  "paragraph_id"
+    t.string   "content"
+    t.string   "color"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+    t.integer  "course_id"
+    t.integer  "start"
+    t.integer  "end"
+  end
 
   create_table "books", force: true do |t|
     t.integer  "author_id"

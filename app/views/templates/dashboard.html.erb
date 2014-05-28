@@ -1,18 +1,27 @@
 <script type="text/ng-template" id="myModalContent.html">
 </script>
+<!--<div add-video code="code">
+</div>
+-->
+<!--
+<input type="text" placeholder="Enter Name" ng-get-selection="content">
+<br/>
+<br/>here select all this text down here</div>
+-->
 <div ng-init="init()">
-  <div ng-repeat="list in lists">
-    <button class="btn btn-default btn-sm" ng-click="open(list.id)">Add Content</button>
-    <p class="bg-success">{{list.modify}}</p>
+<div ng-repeat="paragraph in lists">
+  <button class="btn btn-default btn-sm" ng-click="open(paragraph.id)">Add Content</button>
+  <p class="bg-success">{{paragraph.modify}}</p>
 
-    <button type="button" class="btn btn-info" ng-click="edit(list.modify_id, list.modify)">修改</button>
-    <button type="button" class="btn btn-danger" ng-click="delete(list.modify_id)">删除</button>
+  <button type="button" class="btn btn-info" ng-click="edit(paragraph.modify_id, paragraph.modify)">修改</button>
+  <button type="button" class="btn btn-danger" ng-click="delete(paragraph.modify_id)">删除</button>
 
-    <button class='btn btn-default' ng-click="myStyle={}" style="float:right">清除</button>
-    <button class='btn btn-default' ng-click="myStyle={color:'blue'}" style="float:right">蓝色</button>
-    <button class='btn btn-default' ng-click="myStyle={color:'red'}" style="float:right">红色</button>
-    <p>{{list.id}}</p>
-    <div ng-style="myStyle"><p>{{list.text}}</p></div>
-  </div>
+  <button class='btn btn-default' ng-click="removeHighlight('transparent', paragraph.id)" style="float:right">清除</button>
+  <button class='btn btn-default' ng-click="addColor(paragraph)" style="float:right">addColor</button>
+  <button class='btn btn-default' ng-click="highlight('yellow', paragraph.id)" style="float:right">黄色</button>
+  <button class='btn btn-default' ng-click="myStyle={color:'red'}" style="float:right">红色</button>
+  <p>{{paragraph.id}}</p>
+  <span id="{{paragraph.id}}" ng-style="myStyle" ng-bind="paragraph.text"></span>
+</div>
 </div>
 

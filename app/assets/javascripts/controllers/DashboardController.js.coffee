@@ -1,10 +1,97 @@
-@DashboardController = ($scope, $routeParams, $http, $location, $modal, $log, Book,Modify) ->
+@DashboardController = ($scope, $routeParams, $http, $location, $modal, $log, Book, Annotation, Modify, UUID) ->
 
   $scope.init = ->
     @listsService = new Book(serverErrorHandler)
     $scope.lists = @listsService.all()
 
+    drawColor()
+
   $scope.items = ['item1', 'item2', 'item3']
+
+  $scope.code = '1234'
+
+  $scope.addColor = (index) ->
+    console.log $scope.lists.length
+    a = $scope.lists.indexOf(index)
+    console.log a
+
+  $scope.highlight = (color, paragraphId) ->
+    if window.getSelection
+      content = window.getSelection().toString()
+      try
+        if !document.execCommand("BackColor", false, color)
+          #makeEditHightlight(color)
+          sel = window.getSelection()
+          if sel.rangeCount && sel.getRangeAt
+            range = sel.getRangeAt(0)
+
+            node = document.getElementById('27226')
+
+            start = range.startOffset
+            end = range.endOffset
+
+
+          document.designMode = "on"
+
+          if range
+            sel.removeAllRanges()
+            sel.addRange(range)
+
+          if !document.execCommand("HiliteColor", false, color)
+            document.execCommand("BackColor", false, color)
+
+          document.designMode = "off"
+
+          @annotationService = new Annotation(serverErrorHandler)
+          annotation =
+            paragraphId: paragraphId
+            UUID: UUID.newuuid()
+            content: content
+            color: color
+            start: start
+            end: end
+          @annotationService.create(annotation)
+          console.log v.data
+      catch ex
+        #makeEditHightlight(color)
+    else if document.selection && document.selection.createRange
+      range = document.selection.createRange()
+      range.execCommand("BackColor", false, color)
+
+  $scope.removeHighlight = (color, paragraphId) ->
+    if window.getSelection
+      content = window.getSelection().toString()
+      try
+        if !document.execCommand("BackColor", false, color)
+          #makeEditHightlight(color)
+          sel = window.getSelection()
+          if sel.rangeCount && sel.getRangeAt
+            range = sel.getRangeAt(0)
+            start = range.startOffset
+            end = range.endOffset
+
+          document.designMode = "on"
+
+          if range
+            sel.removeAllRanges()
+            sel.addRange(range)
+
+          if !document.execCommand("HiliteColor", false, color)
+            document.execCommand("BackColor", false, color)
+
+          document.designMode = "off"
+
+          @annotationService = new Annotation(serverErrorHandler)
+          annotation =
+            start: start
+            end: end
+            paragraphId: paragraphId
+          @annotationService.delete(annotation)
+      catch ex
+        #makeEditHightlight(color)
+    else if document.selection && document.selection.createRange
+      range = document.selection.createRange()
+      range.execCommand("BackColor", false, color)
 
   $scope.open = (paragraphId, size) ->
     $scope.paragraphId = paragraphId
@@ -49,9 +136,24 @@
       )
     return true
 
-
-
-
-
   serverErrorHandler = ->
     alert("There was a server error, please reload the page and try again")
+
+  #makeEditHightlight = (color)->
+    #sel = window.getSelection()
+    #if sel.rangeCount && sel.getRangeAt
+      #range = sel.getRangeAt(0)
+
+    #document.designMode = "on"
+
+    #if range
+      #sel.removeAllRanges()
+      #sel.addRange(range)
+
+    #if !document.execCommand("HiliteColor", false, color)
+      #document.execCommand("BackColor", false, color)
+
+    #document.designMode = "off"
+
+  drawColor = ->
+

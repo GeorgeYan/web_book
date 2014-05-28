@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
   resources :midify_paragraph
+  resources :annotation, :except => [:destroy]
+  match 'annotation/paragraphId', to: 'annotation#destroy', via: [:post]
 
   get 'upload/index'
 
