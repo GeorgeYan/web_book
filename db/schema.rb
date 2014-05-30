@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140526063150) do
+ActiveRecord::Schema.define(version: 20140528062415) do
 
   create_table "annotations", force: true do |t|
     t.integer  "paragraph_id"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20140526063150) do
     t.integer  "course_id"
     t.integer  "start"
     t.integer  "end"
+    t.string   "uuid"
   end
 
   create_table "books", force: true do |t|

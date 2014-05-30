@@ -16,6 +16,6 @@ angular.module('web_book').factory 'Annotation', ($resource, $http) ->
     create: (attrs) ->
       new @service(attrs).$save ((data) -> data ), @errorHandler
 
-    delete: (attrs) ->
-      new @service(attrs).$deleteAnnotation (-> null), @errorHandler
+    delete: (uuid) ->
+      new @service().$delete {id: uuid}, (-> null), @errorHandler
       #new @service(attrs).$delete {id: attrs.paragraphId}, (-> null), @errorHandler

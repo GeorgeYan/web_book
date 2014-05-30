@@ -4,15 +4,15 @@
     @listsService = new Book(serverErrorHandler)
     $scope.lists = @listsService.all()
 
+
   $scope.items = ['item1', 'item2', 'item3']
 
   $scope.code = '1234'
 
-  $scope.draw = ->
-    for list in $scope.lists
-      if list.annotation.length > 1
-        for annotation in list.annotation
-          drawColor(annotation)
+  $scope.addColor = (index) ->
+    console.log $scope.lists.length
+    a = $scope.lists.indexOf(index)
+    console.log a
 
   $scope.highlight = (color, paragraphId) ->
     sel = window.getSelection()
@@ -46,8 +46,12 @@
     node = nNd.parentElement
 
     uuid = node.id
-
-    if uuid? && uuid.length == 32
+    reg = /\A\d+\z/
+    puuid= uuid.match(reg)
+    alert puuid
+    alert uuid == puuid
+    if uuid?
+      alert uuid
       if !node.parentElement
         return
       while node.firstChild
@@ -57,7 +61,8 @@
       @annotationService = new Annotation(serverErrorHandler)
       @annotationService.delete(uuid)
     else
-      selectErrorHandler()
+      alert 1
+      serverErrorHandler()
 
   $scope.open = (paragraphId, size) ->
     $scope.paragraphId = paragraphId
@@ -104,52 +109,6 @@
 
   serverErrorHandler = ->
     alert("There was a server error, please reload the page and try again")
-
-  selectErrorHandler = ->
-    alert("操作失败")
-
-  drawColor = (annotation) ->
-    el = document.getElementById(annotation.paragraph_id)
-    start = annotation.start
-    end = annotation.end
-
-    if document.createRange && window.getSelection
-      range = document.createRange()
-      range.selectNodeContents(el)
-
-      textNodes = getTextNodesIn(el)
-      foundStart = false
-      charCount = 0
-      i = 0
-      while textNode = textNodes[i++]
-        endCharCount = charCount + textNode.length
-        if !foundStart && start>=charCount && (start < endCharCount || (start == endCharCount && i < textNodes.length))
-          a = range.setStart(textNode, start - charCount)
-          foundStart = true
-
-        if foundStart && end <= endCharCount
-          b = range.setEnd(textNode, end - charCount)
-          break
-        charCount = endCharCount
-
-      nNd = document.createElement("span")
-      nNd.setAttribute("id", annotation.uuid)
-      nNd.style.color = annotation.color
-
-      range.surroundContents(nNd)
-
-  getTextNodesIn = (node) ->
-    textNodes = []
-    if node.nodeType == 3
-      textNodes.push(node)
-    else
-      children = node.childNodes
-      i=0
-      len = children.length
-      while i < len
-        textNodes.push.apply(textNodes, getTextNodesIn(children[i]))
-        ++i
-    return textNodes
 
   #makeEditHightlight = (color)->
     #sel = window.getSelection()

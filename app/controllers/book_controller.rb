@@ -38,6 +38,9 @@ class BookController < ApplicationController
       tmpParagraph.store(:id, paragraph.id)
       tmpParagraph.store(:text, paragraph.content.text)
 
+
+      tmpParagraph.store(:annotation, paragraph.annotation)
+
       @paragraphs << tmpParagraph
 
     end

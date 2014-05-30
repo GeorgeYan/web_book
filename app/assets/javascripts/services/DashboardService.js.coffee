@@ -3,7 +3,7 @@ angular.module('web_book').factory 'Book', ($resource, $http) ->
     constructor: (errorHandler) ->
       @service = $resource('chapter/101.json',
         {id: '@id'},
-        {update: {method: 'PATCH'}}
+        {update: {method: 'PATCH'}},
       )
       @errorHandler = errorHandler
 
@@ -12,5 +12,5 @@ angular.module('web_book').factory 'Book', ($resource, $http) ->
       defaults.patch['Content-Type'] = 'application/json'
 
     all: ->
-        @service.query((-> null), @errorHandler)
+      @service.query((-> null), @errorHandler)
 

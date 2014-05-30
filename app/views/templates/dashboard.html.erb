@@ -8,6 +8,9 @@
 <br/>
 <br/>here select all this text down here</div>
 -->
+<div>
+  <button class='btn btn-default' ng-click="draw()" style="float:right">显示</button>
+</div>
 <div ng-init="init()">
 <div ng-repeat="paragraph in lists">
   <button class="btn btn-default btn-sm" ng-click="open(paragraph.id)">Add Content</button>
@@ -16,9 +19,8 @@
   <button type="button" class="btn btn-info" ng-click="edit(paragraph.modify_id, paragraph.modify)">修改</button>
   <button type="button" class="btn btn-danger" ng-click="delete(paragraph.modify_id)">删除</button>
 
-  <button class='btn btn-default' ng-click="removeHighlight('transparent', paragraph.id)" style="float:right">清除</button>
-  <button class='btn btn-default' ng-click="addColor(paragraph)" style="float:right">addColor</button>
-  <button class='btn btn-default' ng-click="highlight('yellow', paragraph.id)" style="float:right">黄色</button>
+  <button class='btn btn-default' ng-click="removeHighlight()" style="float:right">清除</button>
+  <button class='btn btn-default' ng-click="highlight('blue', paragraph.id)" style="float:right">蓝色</button>
   <button class='btn btn-default' ng-click="myStyle={color:'red'}" style="float:right">红色</button>
   <p>{{paragraph.id}}</p>
   <span id="{{paragraph.id}}" ng-style="myStyle" ng-bind="paragraph.text"></span>

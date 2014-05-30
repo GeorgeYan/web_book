@@ -5,6 +5,7 @@ class AnnotationController < ApplicationController
   def create
     annotation = Annotation.new
     annotation.paragraph_id = params[:paragraphId]
+    annotation.uuid = params[:uuid]
     annotation.color = params[:color]
     annotation.content = params[:content]
     annotation.start = params[:start]
@@ -25,7 +26,7 @@ class AnnotationController < ApplicationController
   def destroy
     #annotation = Annotation.where(start: params[:start], end: params[:end]).having(paragraph_id: params[:paragraphId])
 
-    annotation = Annotation.first
+    annotation = Annotation.find_by(uuid: params[:id])
     annotation.destroy
     respond_with(annotation) do |format|
       format.json { render :json => annotation.as_json}

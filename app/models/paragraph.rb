@@ -3,6 +3,7 @@ class Paragraph < ActiveRecord::Base
   has_one :content
   has_one :modifyparagraph
   has_many :resources
+  has_many :annotation
   belongs_to :book
   belongs_to :chapter
 
