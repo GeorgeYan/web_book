@@ -19,4 +19,5 @@
 //= require angular-route
 //= require angular-ui-bootstrap-tpls
 //= require web_book
+//= require video
 //= require_tree .

@@ -51,6 +51,8 @@ gem 'nokogiri'
 
 group :test do
   gem 'rspec-rails', '~> 3.0.0.beta'
+  gem 'cucumber-rails', :require => false
+  gem 'database_cleaner'
   gem 'factory_girl'
   #gem 'capybara', '~> 2.2.1'
   #gem 'nokogiri', '~>1.5.10'
@@ -65,3 +67,5 @@ group :development do
   # Add this if you're using rvm
   #    gem 'capistrano-rvm'
 end
+
+gem 'redis', '~> 3.0.7'

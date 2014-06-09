@@ -5,6 +5,9 @@
 <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
 <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 <%= csrf_meta_tags %>
+<script>
+  videojs.options.flash.swf = "http://no9527.u.qiniudn.com/test.mp4";
+</script>
 </head>
 <body ng-app="web_book">
 <div class="container">
@@ -12,5 +15,16 @@
   <%= render "layouts/flash" %>
   <%= yield %>
 </div>
+
+<video id="example_video_1" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="none" width="640" height="264" poster="http://video-js.zencoder.com/oceans-clip.png" data-setup="{}">
+  <source src="http://no9527.u.qiniudn.com/test.mp4" type='video/mp4' />
+  <source src="http://no9527.u.qiniudn.com/test.webm" type='video/webm' />
+  <source src="http://no9527.u.qiniudn.com/test.ogv" type='video/ogg' />
+  <track kind="captions" src="demo.captions.vtt" srclang="en" label="English"></track><!-- Tracks need an ending tag thanks to IE9 -->
+  <track kind="subtitles" src="demo.captions.vtt" srclang="en" label="English"></track><!-- Tracks need an ending tag thanks to IE9 -->
+  <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that
+    <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+  </p>
+</video>
 </body>
 </html>
